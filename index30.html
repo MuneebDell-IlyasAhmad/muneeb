@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- The meta tag defines the character encoding used for the page as UTF-8, which supports most characters worldwide. -->
+    <meta charset="UTF-8">
+    
+    <!-- This meta tag ensures the page is responsive and scales properly on mobile devices. The width is set to match the device's width, and the initial scale is set to 1 (default zoom level). -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- The title that appears in the browser's title bar or tab. -->
+    <title>Wage Calculator</title>
+</head>
+<body>
+    <!-- Main Heading of the webpage -->
+    <h1>Wage Calculation</h1>
+    
+    <!-- Label and input field for the hours worked on Tuesday -->
+    <label for="tuesdayHours">Hours worked on Tuesday:</label>
+    <!-- Input field for user to enter the number of hours worked on Tuesday. The 'type' is set to 'number' so it only accepts numeric values. -->
+    <input type="number" id="tuesdayHours" placeholder="Enter Tuesday hours"><br><br>
+
+    <!-- Label and input field for the hours worked on Wednesday -->
+    <label for="wednesdayHours">Hours worked on Wednesday:</label>
+    <!-- Input field for user to enter the number of hours worked on Wednesday. -->
+    <input type="number" id="wednesdayHours" placeholder="Enter Wednesday hours"><br><br>
+
+    <!-- Label and input field for the hourly rate -->
+    <label for="hourlyRate">Hourly rate:</label>
+    <!-- Input field for user to enter their hourly rate. -->
+    <input type="number" id="hourlyRate" placeholder="Enter hourly rate"><br><br>
+
+    <!-- Button that triggers the calculation when clicked -->
+    <button onclick="calculateWage()">Calculate Total Wage</button><br><br>
+
+    <!-- Div elements where the calculated output will be displayed -->
+    <div id="wageOutput"></div>
+    <div id="randomHoursOutput"></div>
+
+    <script>
+        // This function is triggered when the user clicks the "Calculate Total Wage" button
+        function calculateWage() {
+            // Get the values entered by the user for Tuesday's hours, Wednesday's hours, and the hourly rate
+            let tuesdayHours = parseFloat(document.getElementById('tuesdayHours').value);
+            let wednesdayHours = parseFloat(document.getElementById('wednesdayHours').value);
+            let hourlyRate = parseFloat(document.getElementById('hourlyRate').value);
+
+            // Check if any of the input values are invalid (NaN - Not a Number)
+            // If any field is empty or contains a non-numeric value, we display an error alert and stop the function
+            if (isNaN(tuesdayHours) || isNaN(wednesdayHours) || isNaN(hourlyRate)) {
+                // Alert the user to enter valid numeric values
+                alert("Please enter valid values for hours and hourly rate.");
+                return; // Exit the function without performing calculations if inputs are invalid
+            }
+
+            // Calculate the total number of hours worked by adding Tuesday and Wednesday hours
+            let totalHours = tuesdayHours + wednesdayHours;
+
+            // Calculate the total wage by multiplying the total hours worked by the hourly rate
+            let totalWage = totalHours * hourlyRate;
+
+            // Generate a random number between 2 and 10 (inclusive) to simulate how many hours the user will work next week on a given day
+            // Math.random() generates a random decimal between 0 and 1, so we multiply it by 9 to get a range of 0 to 9, and then add 2 to shift the range to 2-10
+            let randomHoursNextWeek = Math.floor(Math.random() * 9) + 2;
+
+            // Display the total wage calculated in the 'wageOutput' div
+            // We use .toFixed(2) to format the total wage to 2 decimal places for monetary formatting
+            document.getElementById('wageOutput').innerHTML = 
+                `<p>Your total wage for the hours worked is: $${totalWage.toFixed(2)}</p>`;
+
+            // Display the random number of hours the user will work next week in the 'randomHoursOutput' div
+            document.getElementById('randomHoursOutput').innerHTML = 
+                `<p>Next week, you will work ${randomHoursNextWeek} hours on a given day.</p>`;
+        }
+    </script>
+</body>
+</html>
